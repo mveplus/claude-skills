@@ -3,6 +3,10 @@
 Claude Code skills by [mveplus](https://github.com/mveplus), packaged as a
 plugin marketplace.
 
+**How it works:** <https://mveplus.github.io/claude-skills/> is an interactive
+slideshow, built with the skill itself, covering how the skill works and how
+the marketplace and release pipeline fit together.
+
 ## Install
 
 In Claude Code:
