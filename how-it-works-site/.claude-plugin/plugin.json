@@ -1,6 +1,6 @@
 {
   "name": "how-it-works-site",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Build an interactive, multi-slide \"how it works\" site for any repo, with live simulations of its real logic, and publish it on GitHub Pages or GitLab Pages.",
   "author": {
     "name": "mveplus",
@@ -9,5 +9,11 @@
   "homepage": "https://github.com/mveplus/claude-skills/tree/main/how-it-works-site",
   "repository": "https://github.com/mveplus/claude-skills",
   "license": "MIT",
-  "keywords": ["documentation", "slideshow", "github-pages", "gitlab-pages", "explainer"]
+  "keywords": [
+    "documentation",
+    "slideshow",
+    "github-pages",
+    "gitlab-pages",
+    "explainer"
+  ]
 }
