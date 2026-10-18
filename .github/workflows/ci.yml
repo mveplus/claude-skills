@@ -64,7 +64,7 @@ jobs:
           PLUGIN="${TAG%--v*}"
           VERSION="${TAG##*--v}"
 
-          # Skill folder zipped on its own, ready for claude.ai → Settings → Skills.
+          # Skill folder zipped on its own, ready for claude.ai → Settings → Capabilities → Skills.
           (cd "$PLUGIN/skills" && zip -qr "$GITHUB_WORKSPACE/$PLUGIN-$VERSION.zip" "$PLUGIN")
 
           # Notes: commits touching this plugin since its previous tag.

@@ -37,6 +37,6 @@ pre.code .good { color: var(--ok); }
 #tag-out th { width: 48%; }
 .links { margin-top: 22px; }
 /* let wide <pre> blocks scroll inside their column instead of widening the grid */
-.cols > *, .hero > *, .two > * { min-width: 0; }
+.two > * { min-width: 0; }
 .btn { text-decoration: none; color: var(--text); }
 @media (max-width: 480px) { .two { grid-template-columns: 1fr; } }

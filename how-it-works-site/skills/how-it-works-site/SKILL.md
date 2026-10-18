@@ -19,10 +19,12 @@ Templates in this skill's `templates/` directory:
 | `index.html` | `site/index.html` | Page chrome + slide patterns to clone |
 | `deck.css` | `site/deck.css` | Theme tokens, layout, components |
 | `deck.js` | `site/deck.js` | Navigation, overview, hash routing, frame loop, stepper helper |
+| `app.js` | `site/app.js` | Starter for the project's demos (stepper wiring, frame hook) |
 | `github-pages.yml` | `.github/workflows/pages.yml` | GitHub Pages deploy |
 | `gitlab-ci.yml` | merge into `.gitlab-ci.yml` | GitLab Pages deploy |
 
-Project-specific demo code goes in `site/app.js`; keep `deck.js` generic.
+Project-specific demo code goes in `site/app.js` (and styles in an optional
+`site/app.css`); keep `deck.js` and `deck.css` generic.
 
 ## Process
 

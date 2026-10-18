@@ -147,11 +147,12 @@
     <div class="card">
       <h3>Found while building this deck</h3>
       <ul class="finds">
-        <li><code>SKILL.md</code>'s template table lists five files, but <code>templates/</code> also holds <code>app.js</code>, the starter for the project's demos.</li>
-        <li>The Pages template pins <code>actions/checkout@v4.2.2</code>, while this repo's own <code>ci.yml</code> was just moved to <code>checkout@v5</code> for Node 24.</li>
-        <li><code>ci.yml</code>'s comment says the zip goes under <i>Settings → Skills</i>; the release notes it writes say <i>Settings → Capabilities → Skills</i>.</li>
+        <li><code>SKILL.md</code>'s template table listed five files, but <code>templates/</code> also held <code>app.js</code>, the starter for the project's demos.</li>
+        <li>The Pages template pinned <code>actions/checkout@v4.2.2</code> (Node 20), while this repo's own <code>ci.yml</code> had already moved to Node 24 actions.</li>
+        <li><code>ci.yml</code>'s comment said the zip goes under <i>Settings → Skills</i>; the release notes it writes said <i>Settings → Capabilities → Skills</i>.</li>
+        <li>Testing at phone width turned up a template bug: wide code blocks pushed grid columns past the screen edge.</li>
       </ul>
-      <p class="muted small">Reported, not "fixed" on the slides.</p>
+      <p class="muted small">All four were reported to the maintainer first, then fixed in the skill's 1.1.0 release.</p>
     </div>
   </div>
 </section>
@@ -282,11 +283,11 @@ permissions:
   pages: write
   id-token: write
 steps:
-  - uses: actions/checkout@v4.2.2
-  - uses: actions/configure-pages@v5.0.0
-  - uses: actions/upload-pages-artifact@v3.0.1
+  - uses: actions/checkout@v7.0.1
+  - uses: actions/configure-pages@v6.0.0
+  - uses: actions/upload-pages-artifact@v5.0.0
     with: { path: site }
-  - uses: actions/deploy-pages@v4.0.5</pre>
+  - uses: actions/deploy-pages@v5.0.1</pre>
     </div>
   </div>
 </section>
