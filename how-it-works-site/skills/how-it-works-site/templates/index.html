@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PROJECT Internals</title>
+<meta name="description" content="Interactive slideshow explaining how PROJECT works.">
+<link rel="stylesheet" href="deck.css">
+<!-- optional: <link rel="stylesheet" href="app.css"> for project-specific styles -->
+</head>
+<body data-deck-title="PROJECT Internals">
+
+<header class="topbar">
+  <a class="brand" href="#/title"><span class="brand-dot"></span>PROJECT · internals</a>
+  <span class="chapter" id="chapter"></span>
+  <button class="icon-btn" id="btn-overview" title="All slides (O)" aria-label="All slides">▦</button>
+</header>
+
+<main id="deck">
+
+<!-- Pattern: hero / title slide -->
+<section class="slide" id="title" data-chapter="Intro" data-title="PROJECT">
+  <div class="hero">
+    <div>
+      <p class="kicker">COMPONENT · COMPONENT · COMPONENT</p>
+      <h1>How PROJECT works</h1>
+      <p class="lead">A walk through the system, from the reason it exists down to the code, with live simulations of its real behaviour.</p>
+      <p class="muted">Use <kbd>←</kbd> <kbd>→</kbd> or swipe to move, <kbd>O</kbd> for an overview.</p>
+    </div>
+    <div class="card"><!-- playful interactive element tied to the project --></div>
+  </div>
+</section>
+
+<!-- Pattern: two columns, explanation + interactive card -->
+<section class="slide" id="idea" data-chapter="Intro" data-title="The idea">
+  <h2>The idea</h2>
+  <div class="cols">
+    <div>
+      <p class="lead">One or two sentences: the problem, and what this project does about it.</p>
+      <ul class="points">
+        <li><b>Point.</b> Why it matters.</li>
+      </ul>
+    </div>
+    <div class="card"><h3>Pick a component</h3><p id="info">…</p></div>
+  </div>
+</section>
+
+<!-- Pattern: stepper (wire it up with Deck.stepper in app.js) -->
+<section class="slide" id="flow" data-chapter="Intro" data-title="Request flow">
+  <h2>How a request travels</h2>
+  <div class="cols wide-left">
+    <svg viewBox="0 0 900 400" role="img" aria-label="Flow diagram">
+      <path id="e-a-b" class="edge" d="M190 200 L710 200"/>
+      <g class="node" id="n-a"><rect x="30" y="160" width="160" height="80" rx="10"/><text x="110" y="205">A</text></g>
+      <g class="node" id="n-b"><rect x="710" y="160" width="160" height="80" rx="10"/><text x="790" y="205">B</text></g>
+    </svg>
+    <div class="card">
+      <ol class="steps" id="flow-steps">
+        <li>Step one.</li>
+        <li>Step two.</li>
+      </ol>
+      <div class="row"><button class="btn" id="flow-prev">◀ Back</button><button class="btn primary" id="flow-next">Next ▶</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- Pattern: principles grid / closing -->
+<section class="slide" id="principles" data-chapter="Wrap-up" data-title="Design principles">
+  <h2>The ideas behind it</h2>
+  <div class="grid4">
+    <div class="tile"><b>Principle</b><p>How the code embodies it.</p></div>
+  </div>
+</section>
+
+</main>
+
+<nav class="bottombar" aria-label="Slide navigation">
+  <button class="icon-btn" id="btn-prev" aria-label="Previous slide">◀</button>
+  <div class="progress"><div id="progress-fill"></div></div>
+  <span class="counter" id="counter"></span>
+  <button class="icon-btn" id="btn-next" aria-label="Next slide">▶</button>
+</nav>
+
+<div class="overview" id="overview" hidden>
+  <div class="overview-inner">
+    <div class="overview-head"><h2>All slides</h2><button class="icon-btn" id="btn-close-ov" aria-label="Close">✕</button></div>
+    <ol id="overview-list"></ol>
+  </div>
+</div>
+
+<script src="deck.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "mveplus-skills",
+  "owner": {
+    "name": "mveplus",
+    "url": "https://github.com/mveplus"
+  },
+  "metadata": {
+    "description": "Claude Code skills by mveplus."
+  },
+  "plugins": [
+    {
+      "name": "how-it-works-site",
+      "source": "./how-it-works-site",
+      "description": "Build an interactive \"how it works\" slideshow for any repo and publish it on GitHub Pages or GitLab Pages.",
+      "version": "1.0.0",
+      "category": "documentation"
+    }
+  ]
+}

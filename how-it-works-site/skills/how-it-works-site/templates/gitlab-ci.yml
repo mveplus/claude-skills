@@ -1,0 +1,19 @@
+# Publishes the interactive "how it works" slideshow in site/ to GitLab
+# Pages. Merge this job into an existing .gitlab-ci.yml instead of
+# replacing it. GitLab Pages serves whatever the `pages` job leaves in
+# public/.
+
+pages:
+  stage: deploy
+  image: alpine:3.20
+  script:
+    - rm -rf public
+    - cp -r site public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        - site/**/*
+        - .gitlab-ci.yml
