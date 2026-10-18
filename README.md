@@ -64,6 +64,18 @@ how-it-works-site/
   skills/how-it-works-site/templates/  deck engine, theme, page skeleton, CI files
 ```
 
+## Releasing (maintainers)
+
+```bash
+scripts/release.sh how-it-works-site 1.1.0
+```
+
+This bumps the version in `plugin.json` and `marketplace.json`, commits,
+and pushes a `how-it-works-site--v1.1.0` tag. CI (`.github/workflows/ci.yml`)
+validates the manifests, checks that the tag matches them, and publishes a
+GitHub Release with the skill zipped for claude.ai. Every push and PR runs
+the same validation.
+
 ## License
 
 [MIT](LICENSE)

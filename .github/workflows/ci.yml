@@ -1,0 +1,90 @@
+name: ci
+
+# Every push/PR: validate the marketplace and plugin manifests and check
+# versions agree. On a <plugin>--v<version> tag (created by
+# scripts/release.sh / `claude plugin tag`): also check the tag matches the
+# manifests and publish a GitHub Release with the skill zipped.
+
+on:
+  push:
+    branches: [main]
+    tags: ["*--v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4.4.0
+        with:
+          node-version: 22
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code@2.1.302
+
+      - name: Validate manifests
+        run: |
+          set -euo pipefail
+          claude plugin validate .
+          for dir in $(python3 -c 'import json; print(" ".join(p["source"] for p in json.load(open(".claude-plugin/marketplace.json"))["plugins"]))'); do
+            claude plugin validate "$dir"
+          done
+
+      - name: Check versions
+        run: python3 scripts/check-versions.py
+
+      - name: Check tag matches manifests
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          python3 scripts/check-versions.py "${TAG%--v*}" "${TAG##*--v}"
+
+  release:
+    needs: validate
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with: { fetch-depth: 0 }
+
+      - name: Package and publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          TAG="${GITHUB_REF#refs/tags/}"
+          PLUGIN="${TAG%--v*}"
+          VERSION="${TAG##*--v}"
+
+          # Skill folder zipped on its own, ready for claude.ai → Settings → Skills.
+          (cd "$PLUGIN/skills" && zip -qr "$GITHUB_WORKSPACE/$PLUGIN-$VERSION.zip" "$PLUGIN")
+
+          # Notes: commits touching this plugin since its previous tag.
+          PREV="$(git tag --list "$PLUGIN--v*" --sort=-v:refname | grep -vxF "$TAG" | head -n1 || true)"
+          {
+            echo "Install or update in Claude Code:"
+            echo
+            echo '```'
+            echo "/plugin marketplace add ${GITHUB_REPOSITORY}"
+            echo '```'
+            echo
+            echo '```'
+            echo "/plugin install $PLUGIN@$(python3 -c 'import json; print(json.load(open(".claude-plugin/marketplace.json"))["name"])')"
+            echo '```'
+            echo
+            echo "For claude.ai, upload \`$PLUGIN-$VERSION.zip\` under Settings → Capabilities → Skills."
+            echo
+            echo "## Changes"
+            git log --format='- %s (%h)' ${PREV:+"$PREV.."}"$TAG" -- "$PLUGIN"
+          } > notes.md
+
+          gh release create "$TAG" "$PLUGIN-$VERSION.zip" \
+            --title "$PLUGIN v$VERSION" --notes-file notes.md --verify-tag
