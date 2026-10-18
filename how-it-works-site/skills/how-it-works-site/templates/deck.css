@@ -68,6 +68,8 @@ h3 { margin: 0 0 .5em; font-size: 18px; }
 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
 .cols.wide-left { grid-template-columns: 1.4fr 1fr; }
 .cols.wide-right { grid-template-columns: 1fr 1.6fr; }
+/* let wide <pre> blocks scroll inside their column instead of widening the grid */
+.cols > *, .hero > * { min-width: 0; }
 .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
 .points { padding-left: 1.1em; margin: 0; }
 .points li { margin-bottom: .7em; }
